@@ -30,7 +30,7 @@ public class RobotMap {
   // DRIVE TRAIN ID'S
   public static int LEFT_FRONT_SPARK = 4;
   public static int LEFT_BACK_SPARK = 1;
-  public static int RIGHT_FRONT_SPARK = 2;
+  public static int RIGHT_FRONT_SPARK = 10;
   public static int RIGHT_BACK_SPARK = 3;
 
 

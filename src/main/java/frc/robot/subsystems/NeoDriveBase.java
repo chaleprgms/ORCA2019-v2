@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveMotors;
-import frc.robot.robodata.FileWrite;
+
 
 
 
@@ -37,8 +37,7 @@ public class NeoDriveBase extends Subsystem {
 
   double lfEncoder, lbEncoder, rfEncoder, rbEncoder;
 
-  FileWrite writer;
-
+  
 
   public DifferentialDrive drive;
 
@@ -51,7 +50,7 @@ public class NeoDriveBase extends Subsystem {
     try{
 
       navx = new AHRS(Port.kMXP); 
-      writer = new FileWrite();
+
 
     } catch (RuntimeException ex){
 

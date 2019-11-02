@@ -35,9 +35,9 @@ public class DriveMotors extends Command {
     // Logic to see if left or right trigger is pushed to initiate T-Strafe or normal Tank Drive
   
     if(left_trigger > 0){
-      Robot.m_drive.strafeLeft(left_trigger);
+      Robot.m_drive.strafeLeft();
     }else if(right_trigger > 0){
-      Robot.m_drive.strafeRight(right_trigger);
+      Robot.m_drive.strafeRight();
     }else{
       if(Math.abs(left)<RobotMap.DEADZONE){
           left = 0;

@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import java.io.IOException;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -19,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveMotors;
+import frc.robot.robodata.FileWrite;
 
 
 
@@ -28,9 +31,13 @@ public class NeoDriveBase extends Subsystem {
 
   AHRS navx;
 
-  double gyroRead;
+  double gyroRead, accelX, accelY, accelZ;
+
+  double highestX, highestY, highestZ;
 
   double lfEncoder, lbEncoder, rfEncoder, rbEncoder;
+
+  FileWrite writer;
 
 
   public DifferentialDrive drive;
@@ -44,6 +51,7 @@ public class NeoDriveBase extends Subsystem {
     try{
 
       navx = new AHRS(Port.kMXP); 
+      writer = new FileWrite();
 
     } catch (RuntimeException ex){
 
@@ -72,8 +80,14 @@ public class NeoDriveBase extends Subsystem {
   public void periodic(){
 
     gyroRead = navx.getAngle();
+    accelX = navx.getRawAccelX();
+    accelY = navx.getRawAccelY();
+    accelZ = navx.getRawAccelZ();
 
     SmartDashboard.putNumber("Gyro Read: ", gyroRead);
+    SmartDashboard.putNumber("Accel X: ", accelX);
+    SmartDashboard.putNumber("Accel Y: ", accelY);
+    SmartDashboard.putNumber("Accel Z: ", accelZ);
 
     lfEncoder = lf_motor.getEncoder().getPosition();
     lbEncoder = lb_motor.getEncoder().getPosition();
@@ -112,7 +126,7 @@ public class NeoDriveBase extends Subsystem {
   }
   
   
-  public void strafeLeft(double power){
+  public void strafeLeft(){
     
     // Mecanum Trigger bound strafing, see command for how this is accessed
 
@@ -124,11 +138,11 @@ public class NeoDriveBase extends Subsystem {
 
   }
   
-  public void strafeRight(double power){
+  public void strafeRight(){
 
     // Enables Trigger strafing, see above
     
-    lf_motor.set(Robot.m_oi.controller.getRawAxis(3) );
+    lf_motor.set(Robot.m_oi.controller.getRawAxis(3));
     lb_motor.set(Robot.m_oi.controller.getRawAxis(3) *-1);
     rf_motor.set(Robot.m_oi.controller.getRawAxis(3) );
     rb_motor.set(Robot.m_oi.controller.getRawAxis(3)*-1);

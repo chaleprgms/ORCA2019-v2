@@ -72,8 +72,8 @@ public class OI {
 
      cButton5.whileHeld(new IntakeIn());
      cButton6.whileHeld(new IntakeOut());     
-     cButton1.whenPressed(new DeployIntake());
-     cButton2.whenPressed(new ResetIntake());
+     cButton1.whileHeld(new DeployIntake());
+     cButton2.whileHeld(new ResetIntake());
 
 
      

@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.IntakeIn;
 import frc.robot.commands.IntakeOut;
+import frc.robot.commands.ResetIntake;
+import frc.robot.commands.DeployIntake;
 import frc.robot.commands.SetElevatorSetpoint;
 
 
@@ -70,6 +72,9 @@ public class OI {
 
      cButton5.whileHeld(new IntakeIn());
      cButton6.whileHeld(new IntakeOut());     
+     cButton1.whenPressed(new DeployIntake());
+     cButton2.whenPressed(new ResetIntake());
+
 
      
      // Need to re-tune these values when we get a chance, elevator being run slightly different.

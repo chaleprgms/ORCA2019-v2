@@ -28,15 +28,17 @@ public class RobotMap {
   public static int INTAKE_CANID = 9; 
 
   // DRIVE TRAIN ID'S
-  public static int LEFT_FRONT_SPARK = 4;
+  public static int LEFT_FRONT_SPARK = 10;
   public static int LEFT_BACK_SPARK = 1;
-  public static int RIGHT_FRONT_SPARK = 10;
-  public static int RIGHT_BACK_SPARK = 3;
+  public static int RIGHT_FRONT_SPARK = 3;
+  public static int RIGHT_BACK_SPARK = 2;
 
 
   // ELEVATOR & WRIST ID'S
   public static int TALON_WRIST = 7;
   public static int ELEVATOR_MOTOR = 6;
+  public static int WINCH = 8;
+  
 
   
 }

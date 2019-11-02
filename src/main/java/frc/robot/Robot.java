@@ -30,6 +30,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.NeoDriveBase;
 import frc.robot.subsystems.PIDElevator;
 import frc.robot.subsystems.PIDWrist;
+import frc.robot.subsystems.Winch;
 
 
 /**
@@ -48,7 +49,7 @@ public class Robot extends TimedRobot {
   public static Intake m_intake = new Intake();
   public static PIDElevator m_pid = new PIDElevator();
   public static PIDWrist m_pidWrist = new PIDWrist();
-
+  public static Winch m_winch = new Winch();
  
   Command m_autonomousCommand;
   Thread m_visionThread;

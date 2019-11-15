@@ -37,6 +37,6 @@ public class Winch extends Subsystem {
   }
 
   public void undoWinch(){
-    winch.set(ControlMode.PercentOutput, -1);
+    winch.set(ControlMode.PercentOutput, -.5);
   }
 }

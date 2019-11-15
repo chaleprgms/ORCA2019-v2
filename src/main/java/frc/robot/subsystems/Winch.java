@@ -10,13 +10,14 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.main.*;
 
 
 /**
  * Add your docs here.
  */
-public class Winch extends Subsystem {
+public class Winch extends Subsystem implements SubsystemInterface {
   VictorSPX winch = new VictorSPX(RobotMap.WINCH);
 
 
@@ -27,12 +28,26 @@ public class Winch extends Subsystem {
   }
 
 
+  public void periodic(){
+
+    publishData();
+
+  }
+
+  public void publishData(){
+
+    double winchTemp = (winch.getTemperature() * (9/5)) + 32;
+
+    SmartDashboard.putNumber("Winch Temp: ", winchTemp);
+
+  }
+
 
   public void winch(){
     winch.set(ControlMode.PercentOutput, .3);
   }
 
-  public void stopWinch(){
+  public void disable(){
     winch.set(ControlMode.PercentOutput, 0);
   }
 

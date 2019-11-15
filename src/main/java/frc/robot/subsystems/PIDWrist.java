@@ -17,7 +17,7 @@ import frc.robot.main.*;
 /**
  *
  */
-public class PIDWrist extends PIDSubsystem {
+public class PIDWrist extends PIDSubsystem implements SubsystemInterface {
 
   
   private TalonSRX m1;
@@ -41,10 +41,40 @@ public class PIDWrist extends PIDSubsystem {
     @Override
     public void periodic(){
 
-        // keeps encoder value constantly pushed to dashboard
+        publishData();
 
+        checkTemp();
+       
+    }
+
+    public void publishData(){
+        
+        // keeps encoder value constantly pushed to dashboard
+        
         encoderVal = m1.getSelectedSensorPosition();
         SmartDashboard.putNumber("Wrist Encoder: ", encoderVal);
+
+    }
+
+    public void disable(){
+
+
+        m1.set(ControlMode.PercentOutput, 0);
+
+
+    }
+
+    public void checkTemp(){
+
+        double motorTemp = convF(m1.getTemperature());
+
+        SmartDashboard.putNumber("Elevator Motor Temp: ", motorTemp);
+        
+        if(motorTemp > 150){
+
+            m1.set(ControlMode.PercentOutput, 0);
+
+        }
     }
     
     public void initDefaultCommand() {
@@ -99,9 +129,15 @@ public class PIDWrist extends PIDSubsystem {
 
     public void emergencyUp(){
 
-        // Safety inplace to reduce damage to the manipulator incase of accidental mishandling
+        // Safety inplace to reduce damage to the manipulator in case of accidental mishandling
 
 
         m1.set(ControlMode.PercentOutput, .2);
     }
+
+    public double convF(double tempC){
+
+        return (tempC * (9/5)) + 32;
+      }
+
 }

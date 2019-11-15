@@ -17,22 +17,14 @@ import frc.robot.commands.ManualElevator;
 import frc.robot.main.*;
 
 
-public class PIDElevator extends PIDSubsystem {
+public class PIDElevator extends PIDSubsystem implements SubsystemInterface{
 
   private DigitalInput limitSwitch;
   private TalonSRX m1;
   private double encoderVal;
  
 
-  private static PIDElevator ElevatorInstance = new PIDElevator();
 
-
-  public static PIDElevator getInstance(){
-
-    return ElevatorInstance;
-    
-  }
-	
     
     public PIDElevator(){
       
@@ -52,17 +44,51 @@ public class PIDElevator extends PIDSubsystem {
     @Override
     public void periodic(){
         
-        // Periodic is used to keep constant eye on the state of our encoders / whether or not our limit switch is pressed.
+
+        
+        
+        elevatorBottomCheck();
+
+        checkTemp();
+
+        publishData();
+
+
+    }
+
+
+    public void checkTemp(){
+
+        double motorTemp = convF(m1.getTemperature());
+
+        SmartDashboard.putNumber("Elevator Motor Temp: ", motorTemp);
+
+        if(motorTemp > 150){
+
+            m1.set(ControlMode.PercentOutput, 0);
+
+        }
+    }
+
+
+
+    public void elevatorBottomCheck(){
 
         if(!limitSwitch.get()){
 
             m1.setSelectedSensorPosition(0);
             encoderVal = m1.getSelectedSensorPosition();
-            SmartDashboard.putNumber("Encoder: ", encoderVal);
+ 
         }else{
             encoderVal = m1.getSelectedSensorPosition();
-            SmartDashboard.putNumber("Encoder: ", encoderVal);
         }
+
+    }
+    public void publishData(){
+
+            encoderVal = m1.getSelectedSensorPosition();
+            SmartDashboard.putNumber("Encoder: ", encoderVal);
+    
     }
     
     public void initDefaultCommand() {
@@ -134,5 +160,10 @@ public class PIDElevator extends PIDSubsystem {
         m1.setSelectedSensorPosition(0);
 
     }
+
+    public double convF(double tempC){
+
+        return (tempC * (9/5)) + 32;
+      }
 
 }

@@ -37,12 +37,6 @@ public class NeoDriveBase extends Subsystem implements SubsystemInterface {
 
   public DifferentialDrive drive;
 
-  private NeoDriveBase NDBInstance = new NeoDriveBase();
-
-
-  public NeoDriveBase getInstance(){
-    return NDBInstance;
-  }
 
   public NeoDriveBase()
   {
@@ -79,6 +73,28 @@ public class NeoDriveBase extends Subsystem implements SubsystemInterface {
   public void periodic(){
 
     publishData();
+    checkTemp();
+
+  }
+
+  public void checkTemp(){
+
+    
+    CANSparkMax[] motors = {lb_motor, lf_motor, rf_motor, rb_motor};
+
+
+    for(CANSparkMax motor : motors){
+      if(motor.getMotorTemperature() > 65){
+
+        String err = "DRIVE MOTOR OVERHEAT,MOTOR DISABLED";
+        
+        SmartDashboard.putString("ERROR: ", err);
+        
+        motor.set(0);
+
+      }
+    }
+
 
   }
 
@@ -153,5 +169,10 @@ public class NeoDriveBase extends Subsystem implements SubsystemInterface {
   }
 
 
+
+  public double convF(double tempC){
+
+    return (tempC * (9/5)) + 32;
+  }
 
 }

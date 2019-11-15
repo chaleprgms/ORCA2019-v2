@@ -8,8 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-
+import frc.robot.main.*;
 public class SetPIDWrist extends Command {
   private double encoderValue;
 

@@ -10,24 +10,35 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.IntakeIdle;
-import frc.robot.RobotMap;
+import frc.robot.main.*;
 
 /**
  * Add your docs here.
  */
-public class Intake extends Subsystem {
+public class Intake extends Subsystem implements SubsystemInterface {
   
   TalonSRX intake_motor = new TalonSRX(RobotMap.INTAKE_CANID);
 
 
+  private static Intake IntakeInstance = new Intake();
   
+  public Intake getInstance(){
+    return IntakeInstance;
+  }
 
   @Override
   public void initDefaultCommand() {
     
     setDefaultCommand(new IntakeIdle());
 
+  }
+
+  public void periodic(){
+  
+    publishData();
+  
   }
 
   public void intakeIn(){
@@ -46,7 +57,7 @@ public class Intake extends Subsystem {
     intake_motor.set(ControlMode.PercentOutput, -.3);
   }
 
-  public void intakeKill(){
+  public void disable(){
     intake_motor.set(ControlMode.PercentOutput, 0);
   }
   
@@ -54,6 +65,13 @@ public class Intake extends Subsystem {
   
     intake_motor.set(ControlMode.PercentOutput, 1);
   
+  }
+
+  public void publishData(){
+
+    int currentIntakeSpeed = intake_motor.getSelectedSensorVelocity();
+
+    SmartDashboard.putNumber("Intake Velocity: ", currentIntakeSpeed);
   }
 
 

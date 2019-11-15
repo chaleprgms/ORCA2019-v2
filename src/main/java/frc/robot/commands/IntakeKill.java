@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.main.*;
 
 public class IntakeKill extends Command {
   public IntakeKill() {
@@ -26,7 +26,7 @@ public class IntakeKill extends Command {
 
     // Removes power to intake in case of fear of damaging motors
 
-    Robot.m_intake.intakeKill();
+    Robot.m_intake.disable();
   }
 
   // Make this return true when this Command no longer needs to run execute()

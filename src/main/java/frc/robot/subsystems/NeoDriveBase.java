@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import java.io.IOException;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -18,14 +16,12 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.commands.DriveMotors;
+import frc.robot.main.*;
 
 
 
-
-public class NeoDriveBase extends Subsystem {
+public class NeoDriveBase extends Subsystem implements SubsystemInterface {
   
   CANSparkMax lf_motor, rf_motor, lb_motor, rb_motor;
 
@@ -41,8 +37,12 @@ public class NeoDriveBase extends Subsystem {
 
   public DifferentialDrive drive;
 
+  private NeoDriveBase NDBInstance = new NeoDriveBase();
 
 
+  public NeoDriveBase getInstance(){
+    return NDBInstance;
+  }
 
   public NeoDriveBase()
   {
@@ -78,28 +78,11 @@ public class NeoDriveBase extends Subsystem {
 
   public void periodic(){
 
-    gyroRead = navx.getAngle();
-    accelX = navx.getRawAccelX();
-    accelY = navx.getRawAccelY();
-    accelZ = navx.getRawAccelZ();
-
-    SmartDashboard.putNumber("Gyro Read: ", gyroRead);
-    SmartDashboard.putNumber("Accel X: ", accelX);
-    SmartDashboard.putNumber("Accel Y: ", accelY);
-    SmartDashboard.putNumber("Accel Z: ", accelZ);
-
-    lfEncoder = lf_motor.getEncoder().getPosition();
-    lbEncoder = lb_motor.getEncoder().getPosition();
-    rfEncoder = rf_motor.getEncoder().getPosition();
-    rbEncoder = rb_motor.getEncoder().getPosition();
-
-    SmartDashboard.putNumber("LF Encoder: ", lfEncoder);
-    SmartDashboard.putNumber("LB Encoder: ", lbEncoder);
-    SmartDashboard.putNumber("RF Encoder: ", rfEncoder);
-    SmartDashboard.putNumber("RB Encoder: ", rbEncoder);
+    publishData();
 
   }
 
+  
   public void drive(){
     
     // Takes "True" value of our joysticks (deadzone fixed)
@@ -112,15 +95,11 @@ public class NeoDriveBase extends Subsystem {
   
   }
 
-  public void stop(){
+  public void disable(){
   
     // Handles stopping drive when motion needs to be halted quickly
 
     drive.tankDrive(0, 0);
-  
-
-
-
 
   }
   
@@ -148,6 +127,31 @@ public class NeoDriveBase extends Subsystem {
 
   
   }
+
+  public void publishData(){
+
+    gyroRead = navx.getAngle();
+    accelX = navx.getRawAccelX();
+    accelY = navx.getRawAccelY();
+    accelZ = navx.getRawAccelZ();
+
+    SmartDashboard.putNumber("Gyro Read: ", gyroRead);
+    SmartDashboard.putNumber("Accel X: ", accelX);
+    SmartDashboard.putNumber("Accel Y: ", accelY);
+    SmartDashboard.putNumber("Accel Z: ", accelZ);
+
+    lfEncoder = lf_motor.getEncoder().getPosition();
+    lbEncoder = lb_motor.getEncoder().getPosition();
+    rfEncoder = rf_motor.getEncoder().getPosition();
+    rbEncoder = rb_motor.getEncoder().getPosition();
+
+    SmartDashboard.putNumber("LF Encoder: ", lfEncoder);
+    SmartDashboard.putNumber("LB Encoder: ", lbEncoder);
+    SmartDashboard.putNumber("RF Encoder: ", rfEncoder);
+    SmartDashboard.putNumber("RB Encoder: ", rbEncoder);
+
+  }
+
 
 
 }

@@ -8,7 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.main.*;
+
 
 public class IntakeOut extends Command {
   public IntakeOut() {

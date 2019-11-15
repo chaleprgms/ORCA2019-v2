@@ -12,8 +12,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap;
 import frc.robot.commands.ManualElevator;
+
+import frc.robot.main.*;
 
 
 public class PIDElevator extends PIDSubsystem {
@@ -21,8 +22,16 @@ public class PIDElevator extends PIDSubsystem {
   private DigitalInput limitSwitch;
   private TalonSRX m1;
   private double encoderVal;
+ 
+
+  private static PIDElevator ElevatorInstance = new PIDElevator();
 
 
+  public static PIDElevator getInstance(){
+
+    return ElevatorInstance;
+    
+  }
 	
     
     public PIDElevator(){

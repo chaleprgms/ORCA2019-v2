@@ -7,36 +7,19 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.main.*;
-
-
 /**
  * Add your docs here.
  */
-public class Winch extends Subsystem {
-  VictorSPX winch = new VictorSPX(RobotMap.WINCH);
+public interface SubsystemInterface {
 
 
-
-  @Override
-  public void initDefaultCommand() {
-
-  }
+    // Every Subsystem needs  way to be disabled
+    void disable();
 
 
+    // Every Subsystem has data that should be published
+    void publishData();
 
-  public void winch(){
-    winch.set(ControlMode.PercentOutput, .3);
-  }
-
-  public void stopWinch(){
-    winch.set(ControlMode.PercentOutput, 0);
-  }
-
-  public void undoWinch(){
-    winch.set(ControlMode.PercentOutput, -1);
-  }
+    // All subsystems must periodically be outputting information from the publishData() method
+    void periodic();
 }

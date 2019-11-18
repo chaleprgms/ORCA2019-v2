@@ -51,6 +51,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    // initialize them all here to ensure multiple instances of each object dont get created by accident
 
     m_drive = new NeoDriveBase();
     m_pid = new PIDElevator();
@@ -60,9 +61,9 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
 
 
+
+    // Start our camera feed to the dashboard
     m_Camera = new Camera();
-
-
 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);

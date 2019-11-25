@@ -26,6 +26,12 @@ public class Camera {
   Thread m_visionThread;
 
   public Camera(){
+
+    startCam();
+    
+  }
+
+  private void startCam(){
     m_visionThread = new Thread(() -> {
       // Get the UsbCamera from CameraServer
       UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();

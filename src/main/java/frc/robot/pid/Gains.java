@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.setpoints;
+package frc.robot.pid;
 
 /**
  * Add your docs here.

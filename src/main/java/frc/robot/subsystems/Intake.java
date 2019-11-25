@@ -22,12 +22,6 @@ public class Intake extends Subsystem implements SubsystemInterface {
   TalonSRX intake_motor = new TalonSRX(RobotMap.INTAKE_CANID);
 
 
-  private static Intake IntakeInstance = new Intake();
-  
-  public Intake getInstance(){
-    return IntakeInstance;
-  }
-
   @Override
   public void initDefaultCommand() {
     

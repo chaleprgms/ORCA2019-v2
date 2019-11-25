@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ManualElevator;
@@ -19,11 +19,9 @@ import frc.robot.main.*;
 
 public class PIDElevator extends PIDSubsystem implements SubsystemInterface{
 
-  private DigitalInput limitSwitch;
   private TalonSRX m1;
   private double encoderVal;
  
-
 
     
     public PIDElevator(){
@@ -32,10 +30,6 @@ public class PIDElevator extends PIDSubsystem implements SubsystemInterface{
        setAbsoluteTolerance(45);                // Sets absolute tolerance range (Elevator will land withing 45 encoder value of its target)
        getPIDController().setContinuous(false);
     	
-      
-       // Handles bottom limit switch resetting values to zero after usage of PID / elevator bottoming out
-        
-       limitSwitch = new DigitalInput(0);
        m1 = new TalonSRX(RobotMap.ELEVATOR_MOTOR);
        m1.setSelectedSensorPosition(0);
 
@@ -43,11 +37,6 @@ public class PIDElevator extends PIDSubsystem implements SubsystemInterface{
 
     @Override
     public void periodic(){
-        
-
-        
-        
-        elevatorBottomCheck();
 
         checkTemp();
 
@@ -72,18 +61,7 @@ public class PIDElevator extends PIDSubsystem implements SubsystemInterface{
 
 
 
-    public void elevatorBottomCheck(){
-
-        if(!limitSwitch.get()){
-
-            m1.setSelectedSensorPosition(0);
-            encoderVal = m1.getSelectedSensorPosition();
  
-        }else{
-            encoderVal = m1.getSelectedSensorPosition();
-        }
-
-    }
     public void publishData(){
 
             encoderVal = m1.getSelectedSensorPosition();
@@ -115,14 +93,6 @@ public class PIDElevator extends PIDSubsystem implements SubsystemInterface{
         
         SmartDashboard.putNumber("Encoder: ", encoderVal);
     }
-    
-    public boolean getLimit(){
-
-        // returns the current state of the limit switch
-
-    	return limitSwitch.get();	
-    }
-    
 
     public void manualControl(double joystick){
 

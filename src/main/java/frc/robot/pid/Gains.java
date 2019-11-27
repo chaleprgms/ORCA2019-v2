@@ -16,16 +16,16 @@ public class Gains {
     // Exception: FF, always equals 0
 
 
-    final double kP_Elevator = 0;
-    final double kI_Elevator = 0;
-    final double kD_Elevator = 0;
+    public static final double kP_Elevator = 0;
+    public static final double kI_Elevator = 0;
+    public static final double kD_Elevator = 0;
 
-    final double kP_Wrist = 0;
-    final double kI_Wrist = 0;
-    final double kD_Wrist = 0;
+    public static final double kP_Wrist = 0;
+    public static final double kI_Wrist = 0;
+    public static final double kD_Wrist = 0;
 
 
-    final double kF_Global = 0;
+    public static final double kF_Global = 0;
 
 
 }

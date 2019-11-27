@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.NeoDriveBase;
-import frc.robot.subsystems.PIDElevator;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.PIDWrist;
 import frc.robot.subsystems.Winch;
 
@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static NeoDriveBase m_drive;
   public static Intake m_intake;
-  public static PIDElevator m_pid;
+  public static Elevator m_pid;
   public static PIDWrist m_pidWrist;
   public static Winch m_winch;
   public static Camera m_Camera;
@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
     // initialize them all here to ensure multiple instances of each object dont get created by accident
 
     m_drive = new NeoDriveBase();
-    m_pid = new PIDElevator();
+    m_pid = new Elevator();
     m_pidWrist = new PIDWrist();
     m_intake = new Intake();
     m_winch = new Winch();

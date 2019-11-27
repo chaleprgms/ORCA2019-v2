@@ -13,10 +13,10 @@ package frc.robot.pid;
 public class Gains {
 
     // Need to work with gains, currently just imported from previous PID subsystem
-    // Exception: FF, always equals 0
+    // Exception: FF, always equals 0 since feed forward is unnecessary in our case
 
 
-    public static final double kP_Elevator = 0;
+    public static final double kP_Elevator = 0.0004;
     public static final double kI_Elevator = 0;
     public static final double kD_Elevator = 0;
 

@@ -16,9 +16,9 @@ public class Setpoints {
     // H - Hatch,   C - Cargo (lvls 1-3)
 
 
-    public static final double E_H1 = 0;
-    public static final double E_H2 = 0;
-    public static final double E_H3 = 0;
+    public static final double E_H1 = 2590;
+    public static final double E_H2 = 12265;
+    public static final double E_H3 = 20781;
 
 
     public static final double E_C1 = 0;

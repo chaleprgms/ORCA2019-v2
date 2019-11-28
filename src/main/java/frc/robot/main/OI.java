@@ -15,7 +15,8 @@ import frc.robot.commands.IntakeOut;
 import frc.robot.commands.ResetIntake;
 import frc.robot.commands.DeployIntake;
 import frc.robot.commands.SetElevatorSetpoint;
-
+import frc.robot.pid.Setpoints;
+import frc.robot.commands.AutoDrive;
 
 
 /**
@@ -74,24 +75,28 @@ public class OI {
      cButton6.whileHeld(new IntakeOut());     
      cButton1.whileHeld(new DeployIntake());
      cButton2.whileHeld(new ResetIntake());
+     cButton3.whileHeld(new AutoDrive());
+
 
 
      
      // Need to re-tune these values when we get a chance, elevator being run slightly different.
+     // PLEASE RETUNE BEFORE RUNNING TESTS, YOU WILL BREAK SOMETHING.
      
-     auxButton7.whenPressed(new SetElevatorSetpoint(2590)); // LOW HATCH
-     auxButton6.whenPressed(new SetElevatorSetpoint(12265)); // MIDDLE HATCH
-     auxButton8.whenPressed(new SetElevatorSetpoint(20781)); // HIGH HATCH
+     auxButton7.whenPressed(new SetElevatorSetpoint(Setpoints.E_H1));
+     auxButton6.whenPressed(new SetElevatorSetpoint(Setpoints.E_H2)); 
+     auxButton8.whenPressed(new SetElevatorSetpoint(Setpoints.E_H3)); 
 
 
-     auxButton10.whenPressed(new SetElevatorSetpoint(0)); // LOW CARGO
-     auxButton11.whenPressed(new SetElevatorSetpoint(0)); // MIDDLE CARGO
-     auxButton9.whenPressed(new SetElevatorSetpoint(0)); // HIGH CARGO
+     auxButton10.whenPressed(new SetElevatorSetpoint(Setpoints.E_C1)); 
+     auxButton11.whenPressed(new SetElevatorSetpoint(Setpoints.E_C2)); 
+     auxButton9.whenPressed(new SetElevatorSetpoint(Setpoints.E_C3)); 
 
 
      
   }
-
+  
+  
   public double getElevatorPower() {
      
       // Used to get the absolute position of our Aux Joystick (removes deadzone)

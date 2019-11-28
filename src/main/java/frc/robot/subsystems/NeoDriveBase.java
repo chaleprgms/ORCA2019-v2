@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -24,6 +25,10 @@ import frc.robot.main.*;
 public class NeoDriveBase extends Subsystem implements SubsystemInterface {
   
   CANSparkMax lf_motor, rf_motor, lb_motor, rb_motor;
+
+  DifferentialDrive autoSteer;
+
+  SpeedControllerGroup m_left, m_right;
 
   AHRS navx;
 
@@ -58,6 +63,12 @@ public class NeoDriveBase extends Subsystem implements SubsystemInterface {
     rf_motor = new CANSparkMax(RobotMap.RIGHT_FRONT_SPARK, MotorType.kBrushless);
     rb_motor = new CANSparkMax(RobotMap.RIGHT_BACK_SPARK, MotorType.kBrushless);
 
+
+    m_left = new SpeedControllerGroup(lf_motor, lb_motor);
+    m_right =  new SpeedControllerGroup(rf_motor, rb_motor);
+
+    autoSteer = new DifferentialDrive(m_left, m_right);
+
   }
 
   
@@ -86,7 +97,7 @@ public class NeoDriveBase extends Subsystem implements SubsystemInterface {
     for(CANSparkMax motor : motors){
       if(motor.getMotorTemperature() > 65){
 
-        String err = "DRIVE MOTOR OVERHEAT,MOTOR DISABLED";
+        String err = "DRIVE MOTOR OVERHEAT, MOTOR DISABLED";
         
         SmartDashboard.putString("ERROR: ", err);
         
@@ -109,6 +120,26 @@ public class NeoDriveBase extends Subsystem implements SubsystemInterface {
     rb_motor.set(Robot.m_oi.TrueRightX());
     
   
+  }
+
+  public void autoDrive(Limelight m_Limelight){
+
+    boolean m_LimelightHasValidTarget = m_Limelight.findTarget();
+   
+    if (m_LimelightHasValidTarget){
+
+      double m_LimelightDriveCommand = m_Limelight.getDrive();
+      double m_LimelightSteerCommand = m_Limelight.getSteer();
+
+      autoSteer.arcadeDrive(m_LimelightDriveCommand,m_LimelightSteerCommand);
+
+    }else{
+
+      autoSteer.arcadeDrive(0.0,0.0);
+
+    }
+
+
   }
 
   public void disable(){
@@ -151,15 +182,15 @@ public class NeoDriveBase extends Subsystem implements SubsystemInterface {
     accelY = navx.getRawAccelY();
     accelZ = navx.getRawAccelZ();
 
-    SmartDashboard.putNumber("Gyro Read: ", gyroRead);
-    SmartDashboard.putNumber("Accel X: ", accelX);
-    SmartDashboard.putNumber("Accel Y: ", accelY);
-    SmartDashboard.putNumber("Accel Z: ", accelZ);
-
     lfEncoder = lf_motor.getEncoder().getPosition();
     lbEncoder = lb_motor.getEncoder().getPosition();
     rfEncoder = rf_motor.getEncoder().getPosition();
     rbEncoder = rb_motor.getEncoder().getPosition();
+
+    SmartDashboard.putNumber("Gyro Read: ", gyroRead);
+    SmartDashboard.putNumber("Accel X: ", accelX);
+    SmartDashboard.putNumber("Accel Y: ", accelY);
+    SmartDashboard.putNumber("Accel Z: ", accelZ);
 
     SmartDashboard.putNumber("LF Encoder: ", lfEncoder);
     SmartDashboard.putNumber("LB Encoder: ", lbEncoder);

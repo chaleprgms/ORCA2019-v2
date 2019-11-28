@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.NeoDriveBase;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.PIDWrist;
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
   public static PIDWrist m_pidWrist;
   public static Winch m_winch;
   public static Camera m_Camera;
+  public static Limelight m_Limelight;
  
   Command m_autonomousCommand;
  
@@ -59,8 +61,9 @@ public class Robot extends TimedRobot {
     m_intake = new Intake();
     m_winch = new Winch();
     m_oi = new OI();
+  
 
-
+    m_Limelight = new Limelight();
 
     // Start our camera feed to the dashboard
     m_Camera = new Camera();

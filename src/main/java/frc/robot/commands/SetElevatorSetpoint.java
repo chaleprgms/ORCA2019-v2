@@ -13,33 +13,47 @@ import frc.robot.main.*;
 public class SetElevatorSetpoint extends Command {
 
     private double setpoint;
-	
+    private double encoderVal;
+    private boolean finished;
+    
+
     public SetElevatorSetpoint(double setpoint) {
 
         // Allows us to set our desired setpoint for PID to land at
-
     	this.setpoint = setpoint;
+        this.finished = false;
         requires(Robot.m_pid);
-      
+        
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 
-       
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-        Robot.m_pid.goTo(setpoint);
+       this.encoderVal = Robot.m_pid.getEncoder();
+
+       if(encoderVal == 0){
+       
+            Robot.m_pid.disable();
+            this.finished = true;
+       
+        }else if(encoderVal > 0){
+
+           Robot.m_pid.goTo(setpoint);
+           this.finished = false;
+       
+        }
 
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-    	return false;
+    	return this.finished;
     
     }
 

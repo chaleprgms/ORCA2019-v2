@@ -8,8 +8,7 @@ and other programming feats. Pretty much everything in here will be untested for
 update this when its no longer untested so woot!
 
 
-mainly meant for my team to keep up with my developments, but hey they dont read this anyways because they're not quite as
-devoted to programming as i am
+mainly meant for my team to keep up with my developments, but hey they dont read this anyways because ya know, its programming stuff and no one likes to read code and learn new stuff outside of robotics itself. (except henry, proud of you henry)
 
 
 anyways, enjoy - CH

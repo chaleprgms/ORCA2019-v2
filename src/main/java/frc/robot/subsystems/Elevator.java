@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ManualElevator;
 
-import frc.robot.main.RobotMap;
+import frc.robot.RobotMap;
 import frc.robot.pid.*;
 
 

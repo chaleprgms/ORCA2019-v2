@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.main.*;
+import frc.robot.*;
 
 public class IntakeKill extends Command {
   public IntakeKill() {

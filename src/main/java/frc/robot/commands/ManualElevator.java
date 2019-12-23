@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.main.*;
+import frc.robot.*;
 
 public class ManualElevator extends Command {
   public ManualElevator() {
@@ -27,6 +27,7 @@ public class ManualElevator extends Command {
     // Executes manual control command by passing it operator power
 
     Robot.m_pid.manualControl(Robot.m_oi.getElevatorPower());
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()

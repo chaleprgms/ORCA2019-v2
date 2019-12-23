@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.main.Robot;
+import frc.robot.Robot;
 
 public class AutoDrive extends Command {
   

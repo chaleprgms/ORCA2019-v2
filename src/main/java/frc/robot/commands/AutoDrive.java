@@ -15,8 +15,6 @@ public class AutoDrive extends Command {
   public AutoDrive() {
     
     requires(Robot.m_drive);
-    requires(Robot.m_Limelight);
-
     
 
   }

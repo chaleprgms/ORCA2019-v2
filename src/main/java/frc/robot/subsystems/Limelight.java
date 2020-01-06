@@ -21,11 +21,10 @@ public class Limelight extends Subsystem {
   private final double MAX_DRIVE = 0.6;
   private final double DESIRED_TARGET_AREA = 13.0;
 
-  private Timer blinkDelay = new Timer();
+ 
 
   private double tv, tx, ty, ta;
-  private NetworkTableEntry ledMode;
-
+  
   public boolean m_LimelightHasValidTarget;
 
 
@@ -47,22 +46,12 @@ public class Limelight extends Subsystem {
     ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0); 
     ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
 
-    ledMode = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode");
+   
 
   
   }
 
-  public void blinky(){
 
-    // handles led initialization blinks
-    // if they dont blink, you done goofed my friend
-
-    ledMode.setDouble(2);
-    blinkDelay.delay(2);
-    ledMode.setDouble(1);
-
-
-  }
 
   public void initDefaultCommand(){
     
@@ -77,7 +66,7 @@ public class Limelight extends Subsystem {
     
     m_LimelightHasValidTarget = false;
 
-    ledMode.setDouble(3);
+
     
     
 
@@ -99,7 +88,6 @@ public class Limelight extends Subsystem {
   public void stopTracking(){
 
     m_LimelightHasValidTarget = false;
-    ledMode.setDouble(1);
     
   }
 

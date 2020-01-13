@@ -30,10 +30,6 @@ public class Limelight extends Subsystem {
 
   public Limelight(){
     
-    // Coding this at 1 A.M. EST
-    // Please dont judge my method names
-
-    blinky();
     m_LimelightHasValidTarget = false;
 
 
